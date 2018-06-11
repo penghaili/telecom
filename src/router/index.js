@@ -25,11 +25,6 @@ let router = new Router({
           path:'employee_admin',
           name:'employee_admin',
           component:EmployeeAdmin
-        },
-        {
-          path:'user_admin',
-          name:'user_admin',
-          component:EmployeeAdmin
         }
       ]
     }

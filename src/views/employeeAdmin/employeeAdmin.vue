@@ -98,7 +98,7 @@
     </div>
 </template>
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters ,mapMutations} from "vuex"; 
 export default {
   data() {
     return {
@@ -193,10 +193,16 @@ export default {
       this.dialogFormVisible = true;
       this.newform = scope.row
     },
-    remove(){
+    remove(scope){
+      console.log(scope.row)
       this.$confirm('您确定要删除这个人吗？',"提示",{
-        callback(){
-          console.log('ok')
+        callback:()=>{
+          this.deleteItem({
+            code:scope.row.code,
+            cd:()=>{
+              this.$message("删除成功")
+            }
+          })
         }
       })
     },
@@ -225,7 +231,8 @@ export default {
     pageChange(page){
       this.page = page
     },
-    ...mapActions(["fetchGroup","fetchTable","deleteItem"]),
+    ...mapMutations(["deleteItem"]),
+    ...mapActions(["fetchGroup","fetchTable"]),
     ...mapGetters(["filterGroup"])
   },
   mounted() {

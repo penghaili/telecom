@@ -17,6 +17,19 @@ let store = new Vuex.Store({
         },
         updateTable(state,payload){
             state.table = payload
+        },
+        deleteItem(state,payload,cd){
+            let tmp = [...state.table];
+            let idx;
+            tmp.forEach((item,index)=>{
+                if(item.code == payload.code){
+                    idx = index
+                }
+            })
+            tmp.splice(idx,1)
+            state.table = tmp
+            payload.cd()
+            //console.log(state,payload)
         }
     },
     actions:{//通过dispatch来触发一个action
@@ -47,6 +60,9 @@ let store = new Vuex.Store({
                         payload()
                     },1000)
             })
+        },
+        deleteItem({commit},payload){
+            commit('deleteItem',payload)
         }
     },
     getters:{
